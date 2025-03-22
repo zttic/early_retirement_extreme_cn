@@ -12,8 +12,20 @@ if __name__ == "__main__":
     # write catalog
     with open(catalog, encoding="utf-8") as file:
         while (line := file.readline()):
-            with open(outfilename, "a+", encoding="utf-8") as outfile:
-                outfile.write(line)
+            if line.rstrip():
+                if "(" in line and ")" in line:
+                    # Get original filename and title
+                    subfilename = line[line.find("(")+1:line.find(")")]
+                    title = subfilename[subfilename.rfind("-")+1:subfilename.rfind('.')]
+                    # Create anchor link - convert title to lowercase and replace spaces with -
+                    anchor = title.lower().replace(" ", "-")
+                    # Replace original link with anchor link
+                    modified_line = line[:line.find("(")] + f"(#" + anchor + ")" + line[line.find(")")+1:]
+                    with open(outfilename, "a+", encoding="utf-8") as outfile:
+                        outfile.write(modified_line)
+                else:
+                    with open(outfilename, "a+", encoding="utf-8") as outfile:
+                        outfile.write(line)
 
     with open(catalog, encoding="utf-8") as file:
         while (line := file.readline()):

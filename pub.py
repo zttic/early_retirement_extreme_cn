@@ -2,9 +2,9 @@ import os
 
 if __name__ == "__main__":
     path = os.path.dirname(os.path.abspath(__file__))
-    catalog = os.path.join(path, "cn//1-目录.md")
+    catalog = os.path.join(path, "cn", "1-目录.md")
 
-    outfilename = os.path.join(path, "cn\\release.md")
+    outfilename = os.path.join(path, "cn", "release.md")
 
     # clear contents
     open(outfilename, 'w', encoding="utf-8").close()
@@ -31,7 +31,7 @@ if __name__ == "__main__":
                 pageheader = "\r\n#" + "#"*headerlevel + " " + title + "\r\n"
                 print(pageheader)
 
-                infilename = os.path.join(path, "cn\\"+subfilename)
+                infilename = os.path.join(path, "cn", subfilename)
                 with open(outfilename, "a+", encoding="utf-8") as outfile:
                     try:
                         with open(infilename, encoding="utf-8") as infile:
